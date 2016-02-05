@@ -1,0 +1,25 @@
+To compile:
+
+    javac -cp json_simple-1.1.jar *.java
+
+To run:
+
+    python ../../client.py practice
+
+Modify the code in "AIClient.java" to improve the AI.
+
+--------------------------------------------------------------------------------
+Persistent Mode (Experimental)
+
+This isn't well tested and it doesn't work on Windows but if your AI seems to be
+running out of time, give this a shot.  It uses a single Java VM process for
+multiple turns instead of launching a new Java VM every time.
+
+    # Compile the 'dropblox_ai_persistent' launcher.
+    gcc -Wall -Werror -O2 -o dropblox_ai_persitent dropblox_ai_persistent.c
+
+    # Run your AI in "persistent" mode.
+    java -server -cp .:json_simple-1.1.jar Persistent
+
+    # Run client.py
+    python ../../client.py practice dropblox_ai_persistent

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ $# -ne 2 ]]; then
+    echo "Usage: $0 <board-state-json> <time-remaining>" 1>&2
+    exit 1
+fi
+
+exec java -cp .:json_simple-1.1.jar AIClient "$@"

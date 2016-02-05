@@ -1,0 +1,11 @@
+To compile, try any of the following:
+
+    make
+    g++     -std=c++11 -Wall -g -o dropblox_ai dropblox_ai.cpp
+    clang++ -std=c++11 -Wall -g -o dropblox_ai dropblox_ai.cpp
+
+To run:
+    
+    python ../../client.py practice
+
+Modify "dropbox_ai.cpp" to improve the AI.
