@@ -97,7 +97,7 @@ public class AIClient
 
         int[][] newBitmap = board._bitmap.clone();
 
-        int holesScore = 0;
+        /*int holesScore = 0;
         Point[] lowest_squares = getLowestSquares(squares);
         for (Point square : lowest_squares) {
             if (square.i < board.ROWS - 1) {
@@ -105,7 +105,7 @@ public class AIClient
                     holesScore += 1;
                 }
             }
-        }
+        }*/
 
         for (int i = 0; i < num_squares; i++) {
             newBitmap[squares[i].i][squares[i].j] = 1;
@@ -135,6 +135,6 @@ public class AIClient
         double clearScoreFactor = 10.0;
         double touchingWallScoreFactor = 6.0;
 
-        return heightScoreFactor*heightScores + holesScoreFactor*holesScore + clearScoreFactor*clearScore + touchingWallScoreFactor*touchingWallScore;
+        return heightScoreFactor*heightScores /*+ holesScoreFactor*holesScore*/ + clearScoreFactor*clearScore + touchingWallScoreFactor*touchingWallScore;
     }
 }
