@@ -23,11 +23,11 @@ public class AIClient
 
     public static double score(Board board) {
         Point[] squares = board._block.squares();
-        int num_blocks = squares.length;
+        int num_squares = squares.length;
 
         int heightScores = 0;
 
-        for (int i = 0; i < squares.length; i++) {
+        for (int i = 0; i < num_squares; i++) {
             heightScores += squares[i].i;
         }
 
@@ -35,6 +35,10 @@ public class AIClient
         int clearScore = 0;
 
         int[][] newBitmap = board._bitmap.clone();
+
+        for (int i = 0; i < num_squares; i++) {
+            newBitmap[squares[i].i][squares[i].j] = 1;
+        }
 
         for (int i = 0; i< board.ROWS; i++) {
             if (board.isRowComplete(newBitmap, i)) {
@@ -44,7 +48,7 @@ public class AIClient
         clearScore = rowsCompleted*rowsCompleted;
 
         int touchingWallScore = 0;
-        for (int i = 0; i < squares.length; i++) {
+        for (int i = 0; i < num_squares; i++) {
             if (squares[i].j == 0 || squares[i].j == board.ROWS - 1) {
                 touchingWallScore++;
             }
@@ -52,8 +56,8 @@ public class AIClient
 
 
         double heightScoreFactor = 4.0;
-        double clearScoreFactorFactor = 10.0;
-        double wallScoreFactor = 6.0;
+        double clearScoreFactor = 10.0;
+        double touchingWallScoreFactor = 6.0;
 
         return heightScoreFactor*heightScores + clearScoreFactor*clearScore + touchingWallScoreFactor*touchingWallScore;
     }
