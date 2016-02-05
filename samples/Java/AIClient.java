@@ -54,15 +54,29 @@ public class AIClient
     }
 
     public static Point[] getLowestSquares(Point[] squares) {
-        ArrayList<Integer> jIndexes = new ArrayList<>();
+        int minJ = Integer.MAX_VALUE;
+        int maxJ = 0;
         for (Point square : squares) {
-            jIndexes.set(square.j, square.i);
+            if (square.j < minJ) {
+                minJ = square.j;
+            } else if (square.j > maxJ) {
+                maxJ = square.j;
+            }
+        }
+
+        Point[] bottomPoints = new Point[maxJ - minJ + 1];
+
+        for (Point square : squares) {
+            bottomPoints[square.j - minJ] = square;
         }
 
         for (Point square : squares) {
-
+            if (bottomPoints[square.j - minJ].i < square.i) {
+                bottomPoints[square.j - minJ] = square;
+            }
         }
-        return squares;
+
+        return bottomPoints;
     }
 
     public static double score(Point[] squares, Board board) {
@@ -79,15 +93,18 @@ public class AIClient
 
         int[][] newBitmap = board._bitmap.clone();
 
-        int currentHoles = 0;
+        int holesScore = 0;
         Point[] lowest_squares = getLowestSquares(squares);
         for (Point square : lowest_squares) {
-            
+            if (newBitmap[square.i + 1][square.j] == 0) {
+                holesScore += 1;
+            }
         }
 
-
         for (int i = 0; i < num_squares; i++) {
-            newBitmap[squares[i].i][squares[i].j] = 1;
+            Point square = squares[i];
+            //newBitmap[squares[i].i][squares[i].j] = 1;
+            newBitmap[square.i][square.j] = 1;
         }
 
         for (int i = 0; i< board.ROWS; i++) {
@@ -110,9 +127,10 @@ public class AIClient
 
 
         double heightScoreFactor = 4.0;
+        double holesScoreFactor = -2.5;
         double clearScoreFactor = 10.0;
         double touchingWallScoreFactor = 6.0;
 
-        return heightScoreFactor*heightScores + clearScoreFactor*clearScore + touchingWallScoreFactor*touchingWallScore;
+        return heightScoreFactor*heightScores + holesScoreFactor*holesScore + clearScoreFactor*clearScore + touchingWallScoreFactor*touchingWallScore;
     }
 }
