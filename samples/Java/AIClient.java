@@ -2,6 +2,8 @@ import org.json.simple.*;
 
 import java.io.PrintStream;
 
+import java.util.ArrayList;
+
 public class AIClient
 {
     public static void main(String[] argv)
@@ -40,6 +42,28 @@ public class AIClient
 
     }
 
+
+    public static boolean isHole(int[][] bitmap, int i, int j) {
+        if (i != 0) {
+            if (bitmap[i-1][j] == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Point[] getLowestSquares(Point[] squares) {
+        ArrayList<Integer> jIndexes = new ArrayList<>();
+        for (Point square : squares) {
+            jIndexes.set(square.j, square.i);
+        }
+
+        for (Point square : squares) {
+
+        }
+        return squares;
+    }
+
     public static double score(Point[] squares, Board board) {
         int num_squares = squares.length;
 
@@ -54,6 +78,13 @@ public class AIClient
 
         int[][] newBitmap = board._bitmap.clone();
 
+        int currentHoles = 0;
+        Point[] lowest_squares = getLowestSquares(squares);
+        for (Point square : lowest_squares) {
+            
+        }
+
+
         for (int i = 0; i < num_squares; i++) {
             newBitmap[squares[i].i][squares[i].j] = 1;
         }
@@ -65,12 +96,16 @@ public class AIClient
         }
         clearScore = rowsCompleted*rowsCompleted;
 
+        
         int touchingWallScore = 0;
         for (int i = 0; i < num_squares; i++) {
             if (squares[i].j == 0 || squares[i].j == board.ROWS - 1) {
                 touchingWallScore++;
             }
         }
+
+
+        
 
 
         double heightScoreFactor = 4.0;
