@@ -81,6 +81,11 @@ public class AIClient
     public static double score(Point[] squares, Board board) {
         int num_squares = squares.length;
 
+        /*for (Point square : squares) {
+            System.err.println(square);
+        }
+        System.err.println("----------");*/
+
         int heightScores = 0;
 
         for (int i = 0; i < num_squares; i++) {
@@ -95,15 +100,15 @@ public class AIClient
         int holesScore = 0;
         Point[] lowest_squares = getLowestSquares(squares);
         for (Point square : lowest_squares) {
-            if (newBitmap[square.i + 1][square.j] == 0) {
-                holesScore += 1;
+            if (square.i < board.ROWS - 1) {
+                if (newBitmap[square.i + 1][square.j] == 0) {
+                    holesScore += 1;
+                }
             }
         }
 
         for (int i = 0; i < num_squares; i++) {
-            Point square = squares[i];
-            //newBitmap[squares[i].i][squares[i].j] = 1;
-            newBitmap[square.i][square.j] = 1;
+            newBitmap[squares[i].i][squares[i].j] = 1;
         }
 
         for (int i = 0; i< board.ROWS; i++) {
