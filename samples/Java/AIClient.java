@@ -21,8 +21,7 @@ public class AIClient
         }
     }
 
-    public static double score(Board board) {
-        Point[] squares = board._block.squares();
+    public static double score(Point[] squares, Board board) {
         int num_squares = squares.length;
 
         int heightScores = 0;
