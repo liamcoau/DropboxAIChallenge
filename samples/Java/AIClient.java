@@ -15,11 +15,11 @@ public class AIClient
     {
         Board board = Board.initializeBoardFromJSON(jsonObj);
 		int rotateNumber = 0;
-		int pointI = 0;
-		int pointJ = 0;
+		int fromLeft = 0;
 		double maxScore = Double.NEGATIVE_INFINITY;
-
 		for (int i = 0; i < 4; i++) {
+			int leftPos = 0;
+			board._block._rotation = i;
 			while (board._block.checkedLeft(board))
 				;
 			do {
@@ -28,17 +28,16 @@ public class AIClient
 				double score = score(board._block.squares(), board);
 				if (maxScore < score) {
 					maxScore = score;
-					rotateNumber = board._block._rotation;
-					pointI = board._block._translation.i;
-					pointJ = board._block._translation.j;
+					rotateNumber = i;
+					fromLeft = leftPos;
 				}
 				while (board._block.checkedUp(board))
 					;
+				leftPos++;
 			} while (board._block.checkedRight(board));
-			board._block.rotate();
 		}
-		board._block._rotation = rotateNumber;
-		board._block._translation = new Point(pointI, pointJ);
+		Positioning.placeBlock(board._block, fromLeft, rotateNumber);
+
     }
 
     public static double score(Point[] squares, Board board) {
