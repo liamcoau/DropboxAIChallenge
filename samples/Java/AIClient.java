@@ -47,9 +47,18 @@ public class AIClient
         }
         clearScore = rowsCompleted*rowsCompleted;
 
-        double heightScoreFactor = 4.0;
-        double rowsCompletedFactor = 10.0;
+        int touchingWallScore = 0;
+        for (int i = 0; i < squares.length; i++) {
+            if (squares[i].j == 0 || squares[i].j == board.ROWS - 1) {
+                touchingWallScore++;
+            }
+        }
 
-        return heightScoreFactor + rowsCompletedFactor;
+
+        double heightScoreFactor = 4.0;
+        double clearScoreFactorFactor = 10.0;
+        double wallScoreFactor = 6.0;
+
+        return heightScoreFactor*heightScores + clearScoreFactor*clearScore + touchingWallScoreFactor*touchingWallScore;
     }
 }
