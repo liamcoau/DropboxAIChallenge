@@ -16,11 +16,29 @@ public class AIClient
     public static void run(JSONObject jsonObj, PrintStream out)
     {
         Board board = Board.initializeBoardFromJSON(jsonObj);
+		int rotateNumber = 0;
+		int fromLeft = 0;
+		double maxScore = Double.NEGATIVE_INFINITY;
+		for (int i = 0; i < 4; i++) {
+			int leftPos = 0;
+			while (board._block.checkedLeft(board))
+				;
+			do {
+				while (board._block.checkedDown(board))
+					;
+				if (maxScore < score(board._block.squares(), board)) {
+					rotateNumber = i;
+					fromLeft = leftPos;
+				}
+				while (board._block.checkedUp(board))
+					;
+				leftPos++;
+			} while (board._block.checkedRight(board));
+			board._block.rotate();
+		}
+		board._block._rotation = rotateNumber;
+		Positioning.placeBlock(board._block, fromLeft);
 
-        // the following "AI" moves a piece as far left as possible
-        while (board._block.checkedLeft(board)) {
-            out.println("left");
-        }
     }
 
 
