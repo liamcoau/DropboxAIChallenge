@@ -107,9 +107,9 @@ public class AIClient
             }
         }*/
 
-        for (int i = 0; i < num_squares; i++) {
-            newBitmap[squares[i].i][squares[i].j] = 1;
-        }
+       // for (int i = 0; i < num_squares; i++) {
+       //     newBitmap[squares[i].i][squares[i].j] = 1;
+       // }
 
         for (int i = 0; i< board.ROWS; i++) {
             if (board.isRowComplete(newBitmap, i)) {
