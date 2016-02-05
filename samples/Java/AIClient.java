@@ -34,12 +34,8 @@ public class AIClient
         int rowsCompleted = 0;
         int clearScore = 0;
 
-        int[][] newBitmap = new int[board.ROWS][board.COLS];
-        for (int i = 0; i < board.ROWS; i ++) {
-            for (int j = 0; j < board.COLS; j ++) {
-                newBitmap[i][j] = board._bitmap[i][j];
-            }
-        }
+        int[][] newBitmap = board._bitmap.clone();
+
         for (int i = 0; i< board.ROWS; i++) {
             if (board.isRowComplete(newBitmap, i)) {
                 rowsCompleted++;
